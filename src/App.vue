@@ -2,7 +2,11 @@
   <div id="app">
     <dashboard :playerHealth="playerHealth" :monsterHealth="monsterHealth"></dashboard>
 
-    <controls :playerHealth="playerHealth" :monsterHealth="monsterHealth"></controls>
+    <controls
+      :playerHealth="playerHealth"
+      :monsterHealth="monsterHealth"
+      :resetHealths="resetAllHealths"
+    ></controls>
 
     <log></log>
   </div>
@@ -25,6 +29,11 @@ export default {
     dashboard: Dashboard,
     controls: Controls,
     log: Log
+  },
+  methods: {
+    resetAllHealths() {
+      this.playerHealth = this.monsterHealth = 100;
+    }
   },
   created() {
     eventBus.$on("monsterHealthChanged", data => (this.monsterHealth = data));

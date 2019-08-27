@@ -30,6 +30,9 @@ export default {
       type: Number,
       rerquired: true,
       default: 100
+    },
+    resetHealths: {
+        type: Function
     }
   },
   data: () => {
@@ -40,9 +43,8 @@ export default {
   methods: {
     startGame() {
       this.isRunning = true;
-      this.setPlayerHealth(100);
-      this.setMonsterHealth(100);
-
+      this.resetHealths();
+      
       eventBus.resetTurn();
     },
     attack() {
