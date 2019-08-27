@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <dashboard :playerHealth="playerHealth" :monsterHealth="monsterHealth">
-      <controls
+      <controls slot="controls"
         :playerHealth="playerHealth"
         :monsterHealth="monsterHealth"
         :resetHealths="resetAllHealths"
       ></controls>
 
-      <log></log>
+      <log slot="log"></log>
     </dashboard>
   </div>
 </template>

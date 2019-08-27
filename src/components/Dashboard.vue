@@ -23,7 +23,8 @@
       </div>
     </section>
 
-    <slot></slot>
+    <slot name="controls"></slot>
+    <slot name="log"></slot>
   </div>
 </template>
 
