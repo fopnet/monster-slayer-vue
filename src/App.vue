@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <dashboard :playerHealth="playerHealth" :monsterHealth="monsterHealth"></dashboard>
+    <dashboard :playerHealth="playerHealth" :monsterHealth="monsterHealth">
+      <controls
+        :playerHealth="playerHealth"
+        :monsterHealth="monsterHealth"
+        :resetHealths="resetAllHealths"
+      ></controls>
 
-    <controls
-      :playerHealth="playerHealth"
-      :monsterHealth="monsterHealth"
-      :resetHealths="resetAllHealths"
-    ></controls>
-
-    <log></log>
+      <log></log>
+    </dashboard>
   </div>
 </template>
 

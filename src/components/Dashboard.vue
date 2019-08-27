@@ -1,26 +1,30 @@
 <template>
-  <section class="row">
-    <div class="small-6 columns">
-      <h1 class="text-center">YOU</h1>
-      <div class="healthbar">
-        <div
-          class="healthbar text-center"
-          style="background-color: green; margin: 0; color: white;"
-          :style="{width: playerHealth + '%'}"
-        >{{ playerHealth }}</div>
+  <div>
+    <section class="row">
+      <div class="small-6 columns">
+        <h1 class="text-center">YOU</h1>
+        <div class="healthbar">
+          <div
+            class="healthbar text-center"
+            style="background-color: green; margin: 0; color: white;"
+            :style="{width: playerHealth + '%'}"
+          >{{ playerHealth }}</div>
+        </div>
       </div>
-    </div>
-    <div class="small-6 columns">
-      <h1 class="text-center">MONSTER</h1>
-      <div class="healthbar">
-        <div
-          class="healthbar text-center"
-          style="background-color: green; margin: 0; color: white;"
-          :style="{width: monsterHealth + '%'}"
-        >{{ monsterHealth }}</div>
+      <div class="small-6 columns">
+        <h1 class="text-center">MONSTER</h1>
+        <div class="healthbar">
+          <div
+            class="healthbar text-center"
+            style="background-color: green; margin: 0; color: white;"
+            :style="{width: monsterHealth + '%'}"
+          >{{ monsterHealth }}</div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <slot></slot>
+  </div>
 </template>
 
 <script>
