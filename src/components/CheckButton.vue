@@ -16,7 +16,6 @@ export default {
   },
   methods: {
     dispatch() {
-      console.log("dispatch", this.isChecked);
       this.$emit("changed", this.isChecked);
     }
   }

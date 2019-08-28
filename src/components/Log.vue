@@ -23,32 +23,10 @@
 
 <script>
 import { eventBus } from "../main";
-import CheckButton from "./CheckButton.vue";
+import { LogFilter } from "../filters/logFilter";
 
 export default {
-  data: () => {
-    return {
-      turns: [],
-      isPlayer: true,
-      isMonster: true
-    };
-  },
-  components: {
-    checkButton: CheckButton
-  },
-  computed: {
-    filteredTurns() {
-      // xor operator
-      let all = false;
-      let filter = false;
-      if (!this.isPlayer !== !this.isMonster) {
-        filter = this.isPlayer ? true : false;
-      } else {
-        all = true;
-      }
-      return this.turns.filter(el => all || el.isPlayer === filter);
-    }
-  },
+  mixins: [LogFilter],
   created() {
     eventBus.$on("turnAdded", data => this.turns.unshift(data));
     eventBus.$on("resetTurn", () => (this.turns = []));

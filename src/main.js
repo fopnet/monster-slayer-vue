@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 // import App from "./components/Form.vue";
+import CheckButton from "./components/CheckButton.vue";
 
 Vue.directive("highlight", {
   bind(el, binding, vnode) {
@@ -19,8 +20,9 @@ Vue.directive("highlight", {
     }, delay);
   },
 });
+Vue.component("checkButton", CheckButton);
 
-export const eventBus = new Vue({
+export const eventBus = new Vue({ 
   methods: {
     monsterHealthChange(data) {
       this.$emit("monsterHealthChanged", data);
