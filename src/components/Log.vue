@@ -1,9 +1,18 @@
 <template>
   <section class="row log" v-if="turns.length > 0">
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-3 col-sm-5 col-sm-offset-1">
+        <checkButton @changed="isPlayer= $event">Player logs</checkButton>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <checkButton @changed="isMonster= $event">Monster logs</checkButton>
+      </div>
+    </div>
+
     <div class="small-12 columns">
       <ul>
         <li
-          v-for="(turn,i) in turns"
+          v-for="(turn,i) in filteredTurns"
           :class="{'monster-turn': !turn.isPlayer, 'player-turn': turn.isPlayer }"
           :key="i"
         >{{ turn.text }}</li>
@@ -14,12 +23,31 @@
 
 <script>
 import { eventBus } from "../main";
+import CheckButton from "./CheckButton.vue";
 
 export default {
   data: () => {
     return {
-      turns: []
+      turns: [],
+      isPlayer: true,
+      isMonster: true
     };
+  },
+  components: {
+    checkButton: CheckButton
+  },
+  computed: {
+    filteredTurns() {
+      // xor operator
+      let all = false;
+      let filter = false;
+      if (!this.isPlayer !== !this.isMonster) {
+        filter = this.isPlayer ? true : false;
+      } else {
+        all = true;
+      }
+      return this.turns.filter(el => all || el.isPlayer === filter);
+    }
   },
   created() {
     eventBus.$on("turnAdded", data => this.turns.unshift(data));

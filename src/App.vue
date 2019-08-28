@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <dashboard :playerHealth="playerHealth" :monsterHealth="monsterHealth">
-      <controls slot="controls"
+      <controls
+        slot="controls"
         :playerHealth="playerHealth"
         :monsterHealth="monsterHealth"
         :resetHealths="resetAllHealths"

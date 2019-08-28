@@ -1,6 +1,6 @@
 import Vue from "vue";
-// import App from "./App.vue";
-import App from "./components/Form.vue";
+import App from "./App.vue";
+// import App from "./components/Form.vue";
 
 Vue.directive("highlight", {
   bind(el, binding, vnode) {

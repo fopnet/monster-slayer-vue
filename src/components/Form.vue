@@ -3,7 +3,7 @@
     <form>
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-          <h1>File a Complaint</h1>
+          <h1>{{title | camel-case}}</h1>
           <hr />
           <div class="form-group">
             <label for="email">Mail</label>
@@ -109,9 +109,12 @@
 
 <script>
 import Switch from "./Switch";
+import { camelize } from "../utility/util";
+
 export default {
   data: () => {
     return {
+      title: "FILE A COMPLAINT",
       userData: {
         email: "",
         age: 39,
@@ -132,6 +135,11 @@ export default {
   methods: {
     submitted() {
       this.isSubmitted = true;
+    }
+  },
+  filters: {
+    "camel-case"(value) {
+      return camelize(value);
     }
   }
 };
