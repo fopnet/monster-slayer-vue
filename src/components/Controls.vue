@@ -139,12 +139,17 @@ export default {
       eventBus.playerHealthChange(val);
     },
     submit(data) {
-      return this.resource.save({}, data);
+      // return this.resource.save({}, data);
+      return this.resource.saveScore(data);
       // return this.$http.post("scores.json", data);
     }
   },
   created() {
-    this.resource = this.$resource("scores.json");
+    // this.resource = this.$resource("scores.json");
+    const actions = {
+      saveScore: { method: "POST", url: "scores.json" }
+    };
+    this.resource = this.$resource("scores.json", {}, actions);
   }
 };
 </script>
