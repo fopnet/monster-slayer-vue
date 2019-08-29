@@ -13,7 +13,7 @@ Vue.use(VueResource);
 Vue.http.options.root = "https://monster-slayer-bbc5d.firebaseio.com/";
 
 Vue.http.interceptors.push((request, next) => {
-  console.log("Interceptor Hook");
+  // console.log("Interceptor Hook");
 
   next(resp => {
     resp.json = () => {

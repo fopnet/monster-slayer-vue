@@ -18,8 +18,10 @@
 
 <script>
 import { eventBus } from "../main";
+import { scoresActions } from "../actions/scores.actions";
 
 export default {
+  mixins: [scoresActions],
   props: {
     monsterHealth: {
       type: Number,
@@ -37,8 +39,8 @@ export default {
   },
   data: () => {
     return {
-      isRunning: false,
-      resource: {}
+      isRunning: false
+      // resource: {}
     };
   },
   methods: {
@@ -146,10 +148,10 @@ export default {
   },
   created() {
     // this.resource = this.$resource("scores.json");
-    const actions = {
-      saveScore: { method: "POST", url: "scores.json" }
-    };
-    this.resource = this.$resource("scores.json", {}, actions);
+    // const actions = {
+    //   saveScore: { method: "POST", url: "scores.json" }
+    // };
+    // this.resource = this.$resource("scores.json", {}, actions);
   }
 };
 </script>

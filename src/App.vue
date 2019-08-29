@@ -22,8 +22,10 @@ import Dashboard from "./components/Dashboard.vue";
 import Log from "./components/Log.vue";
 import Controls from "./components/Controls.vue";
 import { eventBus } from "./main";
+import { scoresActions } from "./actions/scores.actions";
 
 export default {
+  mixins: [scoresActions],
   data: () => {
     return {
       playerHealth: 100,
@@ -45,8 +47,10 @@ export default {
     loadRecord() {
       this.resource.fetchRecordScore({ tableName: "scores" }).then(resp => {
         const result = resp.json();
-        this.recordScore = result.score;
-        console.log("Record is from ", result.id);
+        if (result) {
+          this.recordScore = result.score;
+          console.log("Record is from ", result.id);
+        }
       });
 
       // this.$http
@@ -62,11 +66,11 @@ export default {
     eventBus.$on("monsterHealthChanged", data => (this.monsterHealth = data));
     eventBus.$on("playerHealthChanged", data => (this.playerHealth = data));
 
-    const actions = {
-      fetchRecordScore: { method: "GET" }
-    };
-    // https://medialize.github.io/URI.js/uri-template.html
-    this.resource = this.$resource("{tableName}.json", {}, actions);
+    // const actions = {
+    //   fetchRecordScore: { method: "GET" }
+    // };
+    // // https://medialize.github.io/URI.js/uri-template.html
+    // this.resource = this.$resource("{tableName}.json", {}, actions);
 
     this.loadRecord();
   }
