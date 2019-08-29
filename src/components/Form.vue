@@ -66,7 +66,7 @@
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
           <label for="priority">Priority</label>
           <select id="priority" class="form-control" v-model="priority">
-            <option v-for="p of priorities">{{p}}</option>
+            <option :key="p" v-for="p of priorities">{{p}}</option>
           </select>
         </div>
       </div>
@@ -79,7 +79,7 @@
       <hr />
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-          <button class="btn btn-primary" @click.prevent="submitted" :disabled="$v.$error">Submit!</button>
+          <button class="btn btn-primary" @click.prevent="submitted" :disabled="$v.$invalid">Submit!</button>
         </div>
       </div>
     </form>
@@ -101,7 +101,7 @@
               <strong>Send Mail?</strong>
             </p>
             <ul>
-              <li v-for="sm of sendMail">{{sm}}</li>
+              <li :key="sm" v-for="sm of sendMail">{{sm}}</li>
             </ul>
             <p>Gender: {{gender}}</p>
             <p>Priority: {{priority}}</p>

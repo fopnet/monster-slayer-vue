@@ -66,4 +66,7 @@ h3 {
   border: 1px solid red;
   padding: 5px;
 }
+.row {
+  margin: auto;
+}
 </style>

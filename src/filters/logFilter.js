@@ -2,8 +2,8 @@ export const LogFilter = {
   data: () => {
     return {
       turns: [],
-      isPlayer: true,
-      isMonster: true,
+      isPlayer: false,
+      isMonster: false,
     };
   },
   computed: {

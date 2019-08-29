@@ -204,4 +204,8 @@ button {
 #give-up:hover {
   background-color: #c7c7c7;
 }
+
+.row {
+  max-width: inherit;
+}
 </style>
