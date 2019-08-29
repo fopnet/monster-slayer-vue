@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3>The record score is {{recordScore}}</h3>
     <section class="row">
       <div class="small-6 columns">
         <h1 class="text-center">YOU</h1>
@@ -42,6 +43,9 @@ export default {
       type: Number,
       rerquired: true,
       default: 100
+    },
+    recordScore: {
+      type: Number
     }
   }
 };
@@ -54,5 +58,12 @@ export default {
   background-color: #eee;
   margin: auto;
   transition: width 500ms;
+}
+
+h3 {
+  text-align: center;
+  color: red;
+  border: 1px solid red;
+  padding: 5px;
 }
 </style>

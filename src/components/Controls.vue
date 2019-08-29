@@ -32,19 +32,20 @@ export default {
       default: 100
     },
     resetHealths: {
-        type: Function
+      type: Function
     }
   },
   data: () => {
     return {
-      isRunning: false
+      isRunning: false,
+      resource: {}
     };
   },
   methods: {
     startGame() {
       this.isRunning = true;
       this.resetHealths();
-      
+
       eventBus.resetTurn();
     },
     attack() {
@@ -111,8 +112,18 @@ export default {
     },
     checkWin(val) {
       if (val <= 0) {
-        alert("You Won");
         this.isRunning = false;
+
+        this.submit({
+          score: this.playerHealth
+        }).then(
+          resp =>
+            alert(
+              `You Won. Score ${this.playerHealth} saved in key ${resp.data.name}`
+            ),
+          err => alert(`error: ${err}`)
+        );
+
         return false;
       } else if (val <= 0) {
         alert("You Lost ");
@@ -126,7 +137,14 @@ export default {
     },
     setPlayerHealth(val) {
       eventBus.playerHealthChange(val);
+    },
+    submit(data) {
+      return this.resource.save({}, data);
+      // return this.$http.post("scores.json", data);
     }
+  },
+  created() {
+    this.resource = this.$resource("scores.json");
   }
 };
 </script>

@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <dashboard :playerHealth="playerHealth" :monsterHealth="monsterHealth">
+    <dashboard
+      :playerHealth="playerHealth"
+      :monsterHealth="monsterHealth"
+      :recordScore="recordScore"
+    >
       <controls
         slot="controls"
         :playerHealth="playerHealth"
@@ -23,7 +27,8 @@ export default {
   data: () => {
     return {
       playerHealth: 100,
-      monsterHealth: 100
+      monsterHealth: 100,
+      recordScore: 0
     };
   },
   components: {
@@ -34,11 +39,22 @@ export default {
   methods: {
     resetAllHealths() {
       this.playerHealth = this.monsterHealth = 100;
+      this.loadRecord();
+    },
+    loadRecord() {
+      this.$http
+        .get("scores.json/?orderBy=%22score%22&limitToLast=1&print=pretty")
+        .then(resp => {
+          const result = resp.json();
+          this.recordScore = result.score;
+          console.log("Record is from ", result.id);
+        });
     }
   },
   created() {
     eventBus.$on("monsterHealthChanged", data => (this.monsterHealth = data));
     eventBus.$on("playerHealthChanged", data => (this.playerHealth = data));
+    this.loadRecord();
   }
 };
 </script>

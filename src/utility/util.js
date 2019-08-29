@@ -10,3 +10,17 @@ export const camelize = str => {
     })
     .join(" ");
 };
+
+export const fromJSON = resp => {
+  if (!resp) {
+    return null;
+  }
+  return Object.keys(resp).map(key => ({
+    id: key,
+    ...resp[key],
+  }))[0];
+};
+
+export const fromJSONList = array => {
+  return array.map(it => fromJSON(it));
+};

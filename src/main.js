@@ -3,6 +3,30 @@ import App from "./App.vue";
 // import App from "./components/Form.vue";
 import CheckButton from "./components/CheckButton.vue";
 
+import VueResource from "vue-resource";
+import { fromJSON, fromJSONList } from "./utility/util";
+
+// using vue-resource as a plugin
+Vue.use(VueResource);
+
+// https://github.com/pagekit/vue-resource/blob/develop/docs/config.md
+Vue.http.options.root = "https://monster-slayer-bbc5d.firebaseio.com/";
+
+Vue.http.interceptors.push((request, next) => {
+  console.log("Interceptor Hook");
+
+  next(resp => {
+    resp.json = () => {
+      const json = Array.isArray(resp.body)
+        ? fromJSONList(resp.body)
+        : fromJSON(resp.body);
+
+      // console.log("inteceptor json", json);
+      return json;
+    };
+  });
+});
+
 Vue.directive("highlight", {
   bind(el, binding, vnode) {
     // el.style.backgroundColor = 'green';
@@ -22,7 +46,7 @@ Vue.directive("highlight", {
 });
 Vue.component("checkButton", CheckButton);
 
-export const eventBus = new Vue({ 
+export const eventBus = new Vue({
   methods: {
     monsterHealthChange(data) {
       this.$emit("monsterHealthChanged", data);

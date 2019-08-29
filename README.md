@@ -22,3 +22,10 @@ npm run build
 ```
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# installing vue-resource
+
+reference:  https://github.com/pagekit/vue-resource
+
+intalling in vue project
+https://github.com/pagekit/vue-resource/blob/develop/docs/config.md
