@@ -10,7 +10,11 @@ export const scoresActions = {
       // https://medialize.github.io/URI.js/uri-template.html
       fetchRecordScore: { method: "GET" },
     };
-    this.resource = this.$resource("{tableName}.json", {}, actions);
+    this.resource = this.$resource(
+      "{tableName}.json?orderBy=%22score%22&limitToLast=1&print=pretty",
+      {},
+      actions,
+    );
     // this.resource = this.$resource("scores.json", {}, actions);
   },
 };

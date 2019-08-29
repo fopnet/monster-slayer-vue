@@ -1,10 +1,13 @@
 import Vue from "vue";
-import App from "./App.vue";
-// import App from "./components/Form.vue";
-import CheckButton from "./components/CheckButton.vue";
+// import App from "./App.vue";
+import Vuelidate from "vuelidate";
+Vue.use(Vuelidate);
 
 import VueResource from "vue-resource";
 import { fromJSON, fromJSONList } from "./utility/util";
+
+import App from "./components/Form.vue";
+import CheckButton from "./components/CheckButton.vue";
 
 // using vue-resource as a plugin
 Vue.use(VueResource);
