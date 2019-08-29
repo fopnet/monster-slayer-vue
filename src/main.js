@@ -1,16 +1,24 @@
 import Vue from "vue";
 import Vuelidate from "vuelidate";
-Vue.use(Vuelidate);
-
+import VueRouter from "vue-router";
 import VueResource from "vue-resource";
+import CheckButton from "./components/CheckButton.vue";
+import { routes } from "./routes";
 import { fromJSON, fromJSONList } from "./utility/util";
 
 import App from "./App.vue";
 // import App from "./components/Form.vue";
-import CheckButton from "./components/CheckButton.vue";
 
-// using vue-resource as a plugin
+const router = new VueRouter({
+  routes,
+  mode: "history", // no hash tag style {hash ou history}
+});
+
+// using as a plugin
 Vue.use(VueResource);
+Vue.use(Vuelidate);
+Vue.use(VueRouter);
+Vue.use(router);
 
 // https://github.com/pagekit/vue-resource/blob/develop/docs/config.md
 Vue.http.options.root = "https://monster-slayer-bbc5d.firebaseio.com/";
@@ -68,5 +76,6 @@ export const eventBus = new Vue({
 
 new Vue({
   el: "#app",
+  router: router,
   render: h => h(App),
 });

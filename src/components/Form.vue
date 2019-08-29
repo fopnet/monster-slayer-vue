@@ -3,7 +3,10 @@
     <form>
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-          <h1>{{title | camel-case}}</h1>
+          <div class="header">
+            <h1>{{title | camel-case}}</h1>
+            <router-link to="/app"><<</router-link>
+          </div>
           <hr />
           <div class="form-group">
             <label for="email">Mail</label>
@@ -161,4 +164,8 @@ export default {
 </script>
 
 <style>
+.header a {
+  display: block;
+  float: right;
+}
 </style>
