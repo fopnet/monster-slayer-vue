@@ -1,28 +1,35 @@
 import Vue from "vue";
 import Vuelidate from "vuelidate";
-import VueRouter from "vue-router";
 import VueResource from "vue-resource";
 import CheckButton from "./components/CheckButton.vue";
-import { routes } from "./routes";
 import { fromJSON, fromJSONList } from "./utility/util";
-
+import store from "./store";
+import axios from "axios";
 import App from "./App.vue";
 // import App from "./components/Form.vue";
+import router from "./routes";
 
-const router = new VueRouter({
-  routes,
-  mode: "history", // no hash tag style {hash ou history}
+axios.defaults.baseURL = "https://monster-slayer-bbc5d.firebaseio.com/";
+axios.defaults.headers.get["Accepts"] = "applicatino/json";
+axios.interceptors.response.use(resp => {
+  // console.log("req interceptor", resp);
+  resp.json = () => {
+    const json = Array.isArray(resp.data)
+      ? fromJSONList(resp.data)
+      : fromJSON(resp.data);
+    return json;
+  };
+  return resp;
 });
 
 // using as a plugin
 Vue.use(VueResource);
 Vue.use(Vuelidate);
-Vue.use(VueRouter);
-Vue.use(router);
 
 // https://github.com/pagekit/vue-resource/blob/develop/docs/config.md
 Vue.http.options.root = "https://monster-slayer-bbc5d.firebaseio.com/";
 
+/*
 Vue.http.interceptors.push((request, next) => {
   // console.log("Interceptor Hook");
 
@@ -37,6 +44,7 @@ Vue.http.interceptors.push((request, next) => {
     };
   });
 });
+*/
 
 Vue.directive("highlight", {
   bind(el, binding, vnode) {
@@ -76,6 +84,7 @@ export const eventBus = new Vue({
 
 new Vue({
   el: "#app",
-  router: router,
+  store,
+  router,
   render: h => h(App),
 });

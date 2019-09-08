@@ -18,10 +18,10 @@
 
 <script>
 import { eventBus } from "../main";
-import { scoresActions } from "../actions/scores.actions";
+// import { scoresActions } from "../actions/scores.actions";
 
 export default {
-  mixins: [scoresActions],
+  // mixins: [scoresActions],
   props: {
     monsterHealth: {
       type: Number,
@@ -42,6 +42,11 @@ export default {
       isRunning: false
       // resource: {}
     };
+  },
+  computed: {
+    recordScore() {
+      return this.$store.getters.recordScore;
+    }
   },
   methods: {
     startGame() {
@@ -119,10 +124,11 @@ export default {
         this.submit({
           score: this.playerHealth
         }).then(
-          resp =>
+          resp => {
             alert(
               `You Won. Score ${this.playerHealth} saved in key ${resp.data.name}`
-            ),
+            );
+          },
           err => alert(`error: ${err}`)
         );
 
@@ -141,9 +147,8 @@ export default {
       eventBus.playerHealthChange(val);
     },
     submit(data) {
-      // return this.resource.save({}, data);
-      return this.resource.saveScore(data);
-      // return this.$http.post("scores.json", data);
+      // return this.resource.saveScore(data);
+      return this.$store.dispatch("saveScore", data);
     }
   },
   created() {

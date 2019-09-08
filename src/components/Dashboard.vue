@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p v-if="email">Logged User {{email}}</p>
     <h3>The record score is {{recordScore}}</h3>
     <section class="row">
       <div class="small-6 columns">
@@ -33,6 +34,14 @@
 import { eventBus } from "../main";
 
 export default {
+  computed: {
+    email() {
+      return !this.$store.getters.user ? false : this.$store.getters.user.email;
+    }
+  },
+  created() {
+    this.$store.dispatch("fetchUser");
+  },
   props: {
     monsterHealth: {
       type: Number,

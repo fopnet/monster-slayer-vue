@@ -29,12 +29,16 @@ import { eventBus } from "../main";
 import { scoresActions } from "../actions/scores.actions";
 
 export default {
-  mixins: [scoresActions],
+  // mixins: [scoresActions],
+  computed: {
+    recordScore() {
+      return this.$store.getters.recordScore;
+    }
+  },
   data: () => {
     return {
       playerHealth: 100,
       monsterHealth: 100,
-      recordScore: 0,
       resource: {}
     };
   },
@@ -49,32 +53,26 @@ export default {
       this.loadRecord();
     },
     loadRecord() {
-      this.resource.fetchRecordScore({ tableName: "scores" }).then(resp => {
-        const result = resp.json();
-        if (result) {
-          this.recordScore = result.score;
-          console.log("Record is from ", result.id);
-        }
-      });
+      if (this.$store.getters.isAuthenticated) {
+        this.$store.dispatch("fetchRecordScore");
+      }
 
-      // this.$http
-      //   .get("scores.json/?orderBy=%22score%22&limitToLast=1&print=pretty")
-      // .then(resp => {
-      //   const result = resp.json();
-      //   this.recordScore = result.score;
-      //   console.log("Record is from ", result.id);
-      // });
+      /*
+      this.resource
+        .fetchRecordScore({ tableName: `scores/${this.store.userId}` })
+        .then(resp => {
+          const result = resp.json();
+          if (result) {
+            this.recordScore = result.score;
+            console.log("Record is from ", result.id);
+          }
+        });
+      */
     }
   },
   created() {
     eventBus.$on("monsterHealthChanged", data => (this.monsterHealth = data));
     eventBus.$on("playerHealthChanged", data => (this.playerHealth = data));
-
-    // const actions = {
-    //   fetchRecordScore: { method: "GET" }
-    // };
-    // // https://medialize.github.io/URI.js/uri-template.html
-    // this.resource = this.$resource("{tableName}.json", {}, actions);
 
     this.loadRecord();
   }

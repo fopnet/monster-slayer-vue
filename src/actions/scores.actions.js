@@ -1,3 +1,6 @@
+/**
+ * Changed by Vuex because the state auth
+ */
 export const scoresActions = {
   data: () => {
     return {
@@ -6,15 +9,20 @@ export const scoresActions = {
   },
   created() {
     const actions = {
-      saveScore: { method: "POST", url: "scores.json" },
+      saveScore: {
+        method: "POST",
+        url: `scores/${this.$store.state.userId}.json`,
+      },
       // https://medialize.github.io/URI.js/uri-template.html
-      fetchRecordScore: { method: "GET" },
+      fetchRecordScore: {
+        method: "GET",
+      },
     };
+
     this.resource = this.$resource(
-      "{tableName}.json?orderBy=%22score%22&limitToLast=1&print=pretty",
+      `{tableName/${this.$store.state.userId}.json?orderBy=%22score%22&limitToLast=1&print=pretty&auth=${this.$store.state.idToken}`,
       {},
       actions,
     );
-    // this.resource = this.$resource("scores.json", {}, actions);
   },
 };
