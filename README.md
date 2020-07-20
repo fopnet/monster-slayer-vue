@@ -54,8 +54,9 @@ Then run the `firebase init` command from your project’s root. You need to cho
     ? What file should be used for Database Rules? database.rules.json
     ✔  Database Rules for example-app-fd690 have been downloaded to database.rules.json.
     Future modifications to database.rules.json will update Database Rules when you run
+    `
     firebase deploy.
-
+   `
     === Hosting Setup
 
     Your public directory is the folder (relative to your project directory) that
