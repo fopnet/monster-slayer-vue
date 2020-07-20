@@ -30,6 +30,7 @@ export const routes = [
     },
   },
   { path: "/form", component: FormLazy },
+  { path: "/", redirect: "/app" },
   // { path: "*", redirect: "/app" },
 ];
 
